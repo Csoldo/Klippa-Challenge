@@ -4,20 +4,17 @@ import os
 import threading
 from rich import print
 
-# Default parameters
-base_url = "https://custom-ocr.klippa.com/api/v1"
-
 def scan(api_key: str, template: str, file_path: str, fast: bool = False, save_json: str = None):
     """
     Scan the contents of a folder (concurrently) or a single file
     """
     output_path = save_json
     if os.path.isdir(file_path):
-        # If file_path is a directory, scan all files in the directory concurrently
+        # If file_path is a directory, scan all files in the directory concurrently (or subdirectories)
         threads = []
         for filename in os.listdir(file_path):
             file_full_path = os.path.join(file_path, filename)
-            thread = threading.Thread(target=scan_document, args=(api_key, template, file_full_path, fast, output_path))
+            thread = threading.Thread(target=scan, args=(api_key, template, file_full_path, fast, output_path))
             thread.start()
             threads.append(thread)
 
@@ -37,6 +34,7 @@ def scan_document(api_key: str, template: str, file_path: str, fast: bool = Fals
     Scan a file and call the appropriate API requests
     """
     # Parameters for the request
+    base_url = "https://custom-ocr.klippa.com/api/v1"
     extraction_mode = "fast" if fast else "full" 
     url = f"{base_url}/parseDocument/{template}"
             

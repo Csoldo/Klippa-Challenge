@@ -11,9 +11,6 @@ typer-cli = "^0.0.13"
 rich = "^13.6.0"
 requests = "^2.31.0"
 
-[tool.poetry.scripts]
-klippa = "klippa.cli:main"
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

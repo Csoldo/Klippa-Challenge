@@ -13,7 +13,7 @@ def apiCall(
     template: str = typer.Option(None, prompt=True, help="(Required) Template for OCR processing"),
     file_path: str = typer.Option(None, prompt=True, help="(Required) Path to the PDF or image file (or directory of files) to be processed)"),
     fast: bool = typer.Option(True, help="Use fast text extraction"),
-    save_json: str = typer.Option(None, help="Save the JSON response to a file"),
+    save_json: str = typer.Option(None, help="Save the JSON response to a file. Note: do not provide extension. Ex: output"),
     ):
     """Scan a PDF or image file (or directory of files) using the Klippa API"""
 
