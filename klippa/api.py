@@ -7,14 +7,26 @@ from rich import print
 def scan(api_key: str, template: str, file_path: str, fast: bool = False, save_json: str = None):
     """
     Scan the contents of a folder (concurrently) or a single file
+
+    Parameters
+    ----------
+    api_key : str
+        API key for authentication
+    template : str
+        Template for OCR processing
+    file_path : str
+        Path to the PDF or image file (or directory of files) to be processed
+    fast : bool, optional
+        Use fast text extraction, otherwise mode is full, by default False
+    save_json : str, optional
+        Save the JSON response to a file. Note: do not provide extension. Ex: output, by default None
     """
-    output_path = save_json
     if os.path.isdir(file_path):
         # If file_path is a directory, scan all files in the directory concurrently (or subdirectories)
         threads = []
         for filename in os.listdir(file_path):
             file_full_path = os.path.join(file_path, filename)
-            thread = threading.Thread(target=scan, args=(api_key, template, file_full_path, fast, output_path))
+            thread = threading.Thread(target=scan, args=(api_key, template, file_full_path, fast, save_json))
             thread.start()
             threads.append(thread)
 
@@ -32,6 +44,19 @@ def scan(api_key: str, template: str, file_path: str, fast: bool = False, save_j
 def scan_document(api_key: str, template: str, file_path: str, fast: bool = False, save_json: str = None):
     """
     Scan a file and call the appropriate API requests
+
+    Parameters
+    ----------
+    api_key : str
+        API key for authentication
+    template : str
+        Template for OCR processing
+    file_path : str
+        Path to the PDF or image file (or directory of files) to be processed
+    fast : bool, optional
+        Use fast text extraction, otherwise mode is full, by default False
+    save_json : str, optional
+        Save the JSON response to a file. Note: do not provide extension. Ex: output, by default None
     """
     # Parameters for the request
     base_url = "https://custom-ocr.klippa.com/api/v1"
