@@ -11,29 +11,34 @@ The CLI tool is able to call the OCR API endpoint with the parameters:
 * Name of output file where the JSON output is saved (print to console if not provided)
 
 Bonuses:
-* The CLI is able to process a folder, so if the `--file-path` parameter is a folder then the API endpoint is called for every image or pdf file inside that folder or any subfolder. This is handy when e.g. you have a folder 2023 with files organized in subfolders for each month of the year.
-* If a folder is provided as the file path, all the subsuqent files will be processed in parallel (concurrently).
+* The CLI is able to process a folder, so if the `--file-path` parameter is a folder then the API endpoint is called for every image or pdf file inside that folder
+* Project can run in docker
+* Configfile options for CLI parameters
+* Monitor a folder
 
 ## Prerequisites
-In order to run this application, you need to have python installed.
-
-This dependencies of this project are managed by `poetry` so you need to install it to successfully run the project. You can find more information about poetry here: https://python-poetry.org/docs/
-
-Install poetry
-```sh
-curl -sSL https://install.python-poetry.org | python3 -
-```
-
+In order to run this application, you need to have python and pip installed.
 
 ## Project setup
-Navigate to the root of the project. To start a virtual shell and install all the dependencies, run the following scripts in the root of the project.
+
+### Docker
+Assuming you have docker installed, you can run the application in a docker container with the following commands:
+
 ```sh
-poetry shell
-poetry install
+docker build -t klippa --rm . 
+docker run -it --name klippa --rm klippa
+```
+
+### Local environment
+
+```sh
+pip install -r requirements.txt
 ```
 
 ## Execute the CLI command
-To see all the information about the scan cli command and its parameters run
+If you give a folder to the parameter `--file-path`, the application won't stop, but it will constantly monitor that folder and run the scan if a new file is added. If the parameter is a single file, the application scans it and exits.
+
+Either locally, or in the docker container, to see all the information about the scan cli command and its parameters run
 ```sh
 python klippa/cli.py scan --help
 ```
