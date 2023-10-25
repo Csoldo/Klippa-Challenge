@@ -1,0 +1,7 @@
+{
+    "api_key": "api_key",
+    "template": "financial_full",
+    "fast": true,
+    "file_path": "documents",
+    "save_json": "output"
+}

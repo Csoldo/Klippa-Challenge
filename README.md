@@ -48,3 +48,14 @@ To run the script with every flag use the following command
 ```sh
 python klippa/cli.py scan --api-key=your_api_key --template=financial_full --file-path=documents --fast --save-json=output 
 ```
+
+Here is how you can provide the config parameters in a file (config.json):
+```json
+{
+    "api_key": "api_key",
+    "template": "financial_full",
+    "fast": true,
+    "file_path": "documents",
+    "save_json": "output"
+}
+```
