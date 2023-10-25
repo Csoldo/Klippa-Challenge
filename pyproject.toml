@@ -10,6 +10,7 @@ python = "^3.10"
 typer-cli = "^0.0.13"
 rich = "^13.6.0"
 requests = "^2.31.0"
+watchdog = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core"]
