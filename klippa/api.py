@@ -1,7 +1,6 @@
 import requests
 import json
 import os
-import multiprocessing
 from rich import print
 
 from watchdog.observers import Observer
@@ -22,14 +21,10 @@ class KlippaAPI:
         """
         if os.path.isdir(self.file_path):
             # If file_path is a directory, scan all files in the directory concurrently (or subdirectories)
-            filenames = []
             for filename in os.listdir(self.file_path):
                 file_full_path = os.path.join(self.file_path, filename)
-                filenames.append(file_full_path)
-        
-            with multiprocessing.Pool() as pool:
-                pool.map(self.scan_document, filenames)
-
+                self.scan_document(file_full_path)
+                
             self.monitor_folder()
 
         elif os.path.isfile(self.file_path):
@@ -71,7 +66,7 @@ class KlippaAPI:
             else:
                 print(dict_data)
 
-            self.scanned_documents.append(dict_data)
+            self.scanned_documents.append(dict_data) 
             self.print_folder_totals()
         else:
             error_message = f"Error: {response.status_code} - {response.reason}"

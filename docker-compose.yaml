@@ -1,0 +1,7 @@
+version: "3.10"
+services:
+  app:
+    build: .
+    image: klippa-cli-image
+    volumes:
+      - ./:/home/app_user
